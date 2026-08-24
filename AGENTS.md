@@ -1,4 +1,4 @@
-# Jason Weirather Coding Defaults
+# Jason L Weirather Coding Defaults
 
 These are the preferences most likely to differ from a coding agent's normal defaults. Repository-specific instructions still take precedence.
 

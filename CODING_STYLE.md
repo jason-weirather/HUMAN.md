@@ -1,4 +1,4 @@
-# Coding Style and Agent Expectations
+# Coding Style and Agent Expectations for Jason L Weirather
 
 This document describes my preferred defaults for Python code and repository design. It is intended both as a personal style guide and as guidance for coding agents working in my repositories.
 
