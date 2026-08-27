@@ -486,6 +486,12 @@ Keep imports organized. Remove unused imports and dead code when the change that
 
 Do not perform unrelated mass formatting or cleanup during a focused change.
 
+## Environment choice
+
+For environment management prefer mamba, naming environments ending in "_env". 
+
+Create envs from the most modern compatible python with minimally necessary conda-forge packages; prefer to install the bulk of dependencies with pip install.
+
 ## Testing and completion
 
 

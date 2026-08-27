@@ -37,6 +37,7 @@ These are the preferences most likely to differ from a coding agent's normal def
 - The Python library should be useful independently of its CLI, HTTP routes, or notebook helpers.
 - Use Click for CLIs. Prefer explicit subcommands/options, one canonical long option name, and show defaults in `--help`.
 - CLI behavior should call the underlying library rather than reimplement it.
+- For environment management prefer mamba, naming environments ending in "_env". Create envs from the most modern compatible python with minimally necessary conda-forge packages; prefer to install the bulk of dependencies with pip install.
 
 ## Handle large data and resources deliberately
 
