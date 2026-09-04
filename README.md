@@ -1,6 +1,8 @@
-# Agent Style
+# HUMAN.md
 
-This repository contains my personal preferences, recorded so AI applications and agents can approach tasks in a way more similar to how I prefer to do them or have them done.
+This repository contains my personal preferences and style choices in one place, recorded so AI tools and agents can have ample context to approach tasks in a way more similar to how I prefer to do them.
+
+The most useful part of this so far is the `CODING_STYLE.md` to help make python libraries and CLIs be structured the way I like.  For example, I love classes in libraries that organize execution of more complicated input sources.  Someone else may really like libraries to stick to simple functions.  By expounding on my preferences here, code development aided by AI can land closer to my preferences.
 
 This is not an attempt to define a best-practices guide for either writing software or conducting science.
 
@@ -35,7 +37,9 @@ So did I write this, or did AI write this?
 
 ## Why publish this?
 
-Coding agents already know a great deal about programming. I am generally not interested in repeating conventional software-engineering advice that they already understand.
+When reviewing code changes proposed by AI, many of the things I find myself critiquing are just beyond my preferred style.  That is time that our this project can help save.
+
+Coding agents already know a great deal about programming. I am generally not interested in repeating conventional software-engineering advice that they already understand. 
 
 What I *am* interested in is specifying the places where reasonable developers make different choices.
 
@@ -70,7 +74,7 @@ For tools that understand the `AGENTS.md` convention, the root `AGENTS.md` can b
 
 It can also serve as a source for whatever project-level or global instruction mechanism a particular coding agent supports.
 
-The longer `CODING_STYLE.md` is primarily a more comprehensive reference for situations where additional context is useful. I don't expect it to be required reading for every agent invocation, but it might be kind of nice to include when asking an agent for a big batch of boilerplate if you want it to look like my boilerplate.
+The longer `CODING_STYLE.md` is primarily a more comprehensive reference for situations where additional context is useful. I don't expect it to be required reading for every agent invocation, but it might be kind of nice to include when asking an agent for a big batch of boilerplate.
 
 Because these preferences will evolve, the repository history and tagged releases can also serve as snapshots of the style at a particular point in time.
 
