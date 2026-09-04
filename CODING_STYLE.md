@@ -406,7 +406,7 @@ A CLI option may have one conventional short form and one canonical long form:
 
 ```text
 -o
---output
+--output-path
 ```
 
 Do not provide several long-form synonyms for the same option.
@@ -414,6 +414,12 @@ Do not provide several long-form synonyms for the same option.
 When an option has a default, expose that default in `--help`.
 
 CLI defaults should correspond to the defaults used by the underlying library rather than defining a separate set of behavior.
+
+When creating CLIs, when you have a tool that is just one single tool, you can place the `--version` as an argument that will just print the version and quit.  When you are making a multi-tool where the command has sub-command calls, then `version` can be one of those sub-commands.  Only use the sub-commands when you have more than one.  Version is never to be shortened to `-v` since that is reserved for verbose output.
+
+The CLI should include a --no-overwrite flag for outputs that will stop execution at the beginning if an overwrite would occur, and by default overwrites should be allowed.  In general, output files should be set after arguments and when an output file is required, the argument such as `--output-path` or `-o` should then also be required.  This is to make it unambiguous which path is being set to the output.
+
+For CLI operations that take a long time or are executing a sophisticated pipeline, I think it is good to be minimal with what is printed to the stdout by default, but a `--verbose` or `-v` should be added that will display tqdm progress bars when sensible.  When a higher level of verbosity is selected with `-vv`, rather than progress bars output more granular log-like details of the run progress assuming it is intended to be parsed through logs.
 
 ## Files, streams, temporary data, and resources
 
