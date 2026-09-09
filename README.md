@@ -2,7 +2,7 @@
 
 This repository contains my personal preferences and style choices in one place, recorded so AI tools and agents can have ample context to approach tasks in a way more similar to how I prefer to do them.
 
-The most useful part of this so far is the `CODING_STYLE.md` to help make python libraries and CLIs be structured the way I like.  For example, I love classes in libraries that organize execution of more complicated input sources.  Someone else may really like libraries to stick to simple functions.  By expounding on my preferences here, code development aided by AI can land closer to my preferences.
+The most useful part so far is `CODING_STYLE.md`, which helps Python libraries and CLIs take the shape I like. I like useful domain classes, public workflow steps I can work through in a notebook, and one clear API rather than a collection of aliases. That does not mean rejecting a list because I happened to use a tuple in an example. Those distinctions are the point of writing my preferences down.
 
 This is not an attempt to define a best-practices guide for either writing software or conducting science.
 
@@ -31,15 +31,21 @@ Then I had ChatGPT generate a new guide based on that feedback, and it looked mu
 
 I believe those feedback notes gave it more insight into the details behind my decisions, while the broader conversation gave it enough context to understand how my personal style differs from generic coding practices.
 
+A later pass used older code, recent code, and the guide to build a batch of interview questions with concrete examples and alternatives. I answered which choices I preferred, why, and whether I felt strongly about them. That exposed some important differences between what I had said and what the guide could make an agent do.
+
+For example, "no aliases" does not mean "only accept tuples." Liking classes does not mean wrapping every DataFrame in another object. Being comfortable with breaking changes does not mean I want an agent to change a public API without discussing it. And developing an idea in a notebook is how I get to a useful library, not a rejection of library-first design.
+
+The answers take priority over patterns an agent thinks it recognizes in my code. Some old habits are habits I no longer want. Some new patterns are improvements I want to keep. Sometimes I simply do not have a strong preference.
+
 So did I write this, or did AI write this?
 
 `¯\_(ツ)_/¯`
 
 ## Why publish this?
 
-When reviewing code changes proposed by AI, many of the things I find myself critiquing are just beyond my preferred style.  That is time that our this project can help save.
+When reviewing code changes proposed by AI, many of the things I find myself critiquing are choices that do not fit my preferred style. This project can save some of that repeated explanation.
 
-Coding agents already know a great deal about programming. I am generally not interested in repeating conventional software-engineering advice that they already understand. 
+Coding agents already know a great deal about programming. I am generally not interested in repeating conventional software-engineering advice that they already understand.
 
 What I *am* interested in is specifying the places where reasonable developers make different choices.
 
@@ -77,6 +83,14 @@ It can also serve as a source for whatever project-level or global instruction m
 The longer `CODING_STYLE.md` is primarily a more comprehensive reference for situations where additional context is useful. I don't expect it to be required reading for every agent invocation, but it might be kind of nice to include when asking an agent for a big batch of boilerplate.
 
 Because these preferences will evolve, the repository history and tagged releases can also serve as snapshots of the style at a particular point in time.
+
+## Keeping it personal
+
+New preferences should improve a real decision, not just add more instructions. Use concrete examples to ask where two reasonable designs differ, and keep "strong preference," "context-dependent," and "no preference" distinct.
+
+Revise the affected rule when an answer clarifies it instead of appending a contradictory exception elsewhere. Carry the strongest operational distinctions into `AGENTS.md`; keep rationale and examples in `CODING_STYLE.md`. Neither document should tell an agent to do the opposite of the other.
+
+Do not fill unanswered questions with conventional advice and attribute it to me. Historical code is useful evidence for questions, not a specification of how I want new code written. The guide should describe choices I would endorse now.
 
 ## What's next?
 
