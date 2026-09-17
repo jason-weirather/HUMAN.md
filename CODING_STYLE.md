@@ -423,6 +423,8 @@ class Record:
 
 Use `NamedTuple` when tuple behavior or tuple interoperability is useful.
 
+Match the amount of structure to the amount of information and behavior. A list of simple records should be accepted directly as a list or compatible sequence; do not require a single-key dictionary envelope, multiple record layers, or a conversion pipeline unless those carry meaning needed now. A small class may own the records and provide useful validation or accessors, but it should make the ordinary data easier to use, not hide it behind a miniature framework. Keep one obvious input shape and a straightforward way to get that data back. Validate meaningful invariants at the boundary and trust them internally. Schemas can describe arrays directly; using a schema does not itself justify more nesting or more Python classes. Add structure to remove actual complexity, not merely to make a small value resemble the rest of the architecture.
+
 ### JSON Schema authority
 
 For complex external inputs, outputs, saved records, reports, API documents, or other exchanged structured data, prefer an authoritative JSON Schema.
