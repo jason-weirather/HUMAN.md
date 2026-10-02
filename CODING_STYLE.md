@@ -121,11 +121,15 @@ Once a project explicitly promises a stable public API in its README.md, or has 
 
 ## Repository and package structure
 
-Start new Python projects from a contemporary Python version unless otherwise specified.
+Choose a practical modern Python baseline, not the newest interpreter by reflex. Balance useful dependency and deployment compatibility against maintenance cost, support lifetime, and language or runtime features that materially help the project. "Modern Python" is not an instruction to set `requires-python = ">=3.12"` automatically.
 
-The Python range declared by `[project].requires-python` is authoritative. Use the modern syntax and standard-library functionality available in that range.
+For new libraries, favor the oldest Python version that remains a sensible supported target for the intended users and dependencies while keeping the implementation straightforward. There is no permanent preferred version number. For existing libraries, preserve the declared minimum unless a concrete requirement or benefit justifies changing it, and discuss the compatibility trade-off before raising or lowering it.
 
-Do not add backports, compatibility branches, or dependencies solely to support Python versions the project does not claim to support.
+A newer dependency requirement, meaningful language/runtime benefit, or support/security concern can justify a newer baseline. Cosmetic syntax or typing preferences alone usually do not. Conversely, do not contort the code, freeze the dependency stack indefinitely, or accumulate backports just to support obsolete interpreters. Check current Python support lifetimes and the actual dependency constraints when making the decision. A deliberately retained legacy scientific runtime may be an exception, with its purpose and limitations documented rather than treated as the default for new projects.
+
+The Python range declared by `[project].requires-python` is authoritative. Use syntax and standard-library functionality available throughout that range, align dependency constraints and lint targets with it, and test the declared minimum. A newer development interpreter does not itself justify raising the package minimum or assuming newer APIs are available.
+
+Do not add backports, compatibility branches, or dependencies solely to support Python versions the project does not claim to support. Within a deliberately supported range, a small established backport or slightly older syntax can be preferable to excluding useful environments; it still needs a concrete reason.
 
 A normal repository should follow this structure:
 
@@ -178,7 +182,7 @@ A re-export may establish the documented public entry point while its implementa
 
 `pyproject.toml` is the sole authored source of the package version.
 
-Place version-resolution code in:
+Keep version-resolution machinery deliberately internal, with only `__version__` public. Place it in:
 
 ```text
 src/<package>/_version.py
@@ -203,6 +207,10 @@ is acceptable because it explicitly communicates that no authoritative version w
 ### Naming
 
 Use ordinary Python naming conventions: `snake_case` for modules, functions, and variables; `UpperCamelCase` for classes; a leading underscore for private implementation details; and `UPPER_CASE` for constants.
+
+Prefer plain module and subpackage names when they contain reusable domain behavior or could reasonably be used as part of the library surface. A supporting module is not automatically private just because a larger class calls it, it has few callers today, or it is not re-exported from the top-level package. Names such as `sampling.py`, `validation.py`, and `rendering.py` do not need leading underscores by default.
+
+Use a leading underscore when it communicates a deliberate boundary: callers should not depend on that implementation detail. Private helpers can live inside a plainly named module; a plain module name does not make every contained object a supported public API. Keep the intentional documented import surface clear and singular, as described above. `_version.py` is an appropriate private module because its resolution machinery is internal while `__version__` is public. Do not mass-rename unrelated existing modules merely to remove underscores.
 
 Prefer descriptive names in orchestration and public interfaces. Domain-standard abbreviations and mathematical shorthand are fine inside small, understandable calculations. I do not have a strong preference between `x, w` and `values, weights` when both versions are clear in context.
 
@@ -647,7 +655,11 @@ Remove dead code and unused imports as changes make them obsolete. Commented-out
 
 ## Environment choice
 
-Prefer mamba for environment management and names ending in `_env`. Use the most modern compatible Python with minimally necessary conda-forge packages, then install most dependencies with pip.
+Prefer mamba for environment management and names ending in `_env`. Use minimally necessary conda-forge packages, then install most dependencies with pip.
+
+Separate three choices: the library's supported Python range, the interpreter selected for a development environment, and any pinned scientific execution environment. Follow the compatibility-first baseline guidance above. A new development environment may use a newer compatible stable interpreter without making that version the library minimum.
+
+Preserve an established scientific stack when its versions matter to the method. Do not upgrade its interpreter or numerical/model dependencies just to accommodate optional visualization or reporting. When those roles need incompatible stacks, a deliberate file or process boundary is preferable to forcing one environment to satisfy both. Dependency compatibility includes the actual package versions and target platforms, not just Python syntax.
 
 ## Testing and completion
 

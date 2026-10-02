@@ -23,6 +23,7 @@ These are my personal defaults, not a universal Python style guide. Explicit tas
 - A tiny clear calculation can stay inline. Extract a helper when length, complexity, or a substantial explanation warrants it, even without reuse. Put substantial helpers in a local `utilities.py` or focused module within that subpackage.
 - Pass individual properties when they are all the receiver needs. Pass the whole object when the receiver genuinely uses its domain capabilities, not just to retrieve one value.
 - Make meaningful workflow stages public and independently usable. `.process()` is optional; it or a notebook should orchestrate the same stages. Low-level helpers may remain private.
+- Prefer plain module/subpackage names for reusable or potentially public domain code. Do not add `_` just because a module supports a class or is not re-exported at package level. Reserve leading underscores for deliberately non-public implementation details. This does not make every helper public or create several documented import paths; do not mass-rename unrelated modules.
 - Use named `@classmethod` constructors for genuinely different origins and class methods for class-wide operations such as `Thing.concat(...)`. Use `ABC` / `@abstractmethod` for deliberate required interfaces.
 
 ## Visible work and deliberate ownership
@@ -67,4 +68,8 @@ Expose or record meaningful method/software versions, important parameters, and 
 
 ## Environment
 
-Prefer mamba environments named with an `_env` suffix, a modern compatible Python, minimally necessary conda-forge packages, and pip for most dependencies. Respect the project's declared Python range rather than adding unpromised compatibility.
+Prefer mamba environments named with an `_env` suffix, minimally necessary conda-forge packages, and pip for most dependencies.
+
+Choose a practical modern Python baseline that balances dependency/deployment compatibility, maintenance, and useful newer features. Do not default to Python 3.12+ or the newest release merely because it is newer. Preserve an existing declared minimum unless a change is justified and discussed; do not add unpromised support for older versions either. For a new baseline, favor the oldest version that remains a sensible supported target and keeps the implementation straightforward. Check current Python support lifetimes and dependency requirements rather than hard-coding a permanent version preference. Deliberate legacy scientific runtimes are a separate, documented compatibility decision.
+
+Distinguish the package's minimum Python from its development interpreter and pinned execution environments. Keep `requires-python`, syntax, dependencies, lint targets, and minimum-version tests consistent. Do not upgrade a working scientific stack just to accommodate optional reporting tools.
